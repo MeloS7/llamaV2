@@ -1,0 +1,7 @@
+trl
+peft
+BitsAndBytes
+accelerate
+xformers
+tokenizers==0.13.3
+transformers==4.31.0
