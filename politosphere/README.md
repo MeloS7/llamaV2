@@ -1,45 +1,87 @@
 # Politosphere
 
+## Polarized
+- antagonizing statements / hostility / billitling: "us vs them"
+- radicalization
+- conflictive confrontation
+- closed to contradiction
+- trolling
+- affective
+- bad faith
+- language used and argumentative mechanism:
+  - argument from authority
+  - cognitive bias
+  - social bias
+  - irony
+  - sarcasm
+  - hate speech, offensive, aggressive, abusive, toxic
+  - fake news and gross generalization
+  - patronizing /condescending language
+  - dismissive language
+  - taunt or snide remarks
+- Overconfidence in assertions that are either:
+  - coarse-grained
+  - vague
+  - emotional
+  - unsourced
+
+## Non-polarized 
+- constructive conversation
+- bring together to a common ground
+- peaceful dialogue 
+- genuinely open to contradiction
+- educational
+- humble
+- good faith
+- Confidence in assertions that are either:
+  - precise
+  - data-based
+  - factual
+  - sourced
+- Cautious / Careful presentation of assertions that are either:
+  - coarse-grained
+  - vague
+  - emotional
+  - unsourced
+
 ## Label Definitions
-- Support Gun Polarized
-- Support Gun non-Polarized
-- Neutral
-- Anti Gun Polarized
-- Anti Gun non-Polarized
-- Not Relevant
-- Not Sure
+- Non-polarized opposition to Gun Control
+- Polarized opposition to Gun Control
+- Non-polarized support of Gun Control
+- Polarized support of Gun Control
+- Neutral statement on Gun Control
+- Not sure
+- Irrelevant (off-topic, non-related, etc.)
 
-### Support Gun Polarized
-Explicitly in favor of individual gun ownership, or against gun bans and gun confiscation, with a strong tone or biased statements.
+### Opposition to Gun Control
+Explicitly in favor of individual gun ownership, or against gun bans and gun confiscation.
 
+#### Polarized
 e.g. i 'll just say fuck dianne feinstein . she is for full confiscation , and she is against universal healthcare . literally the worst .
 
-### Support Gun non-Polarized
-Explicitly in favor of individual gun ownership, or against gun bans and gun confiscation, but with a relatively calm tone that tends to express itself in ways such as stating facts and analyzing data.
-
+#### Non-polarized
 e.g. this is also why i love hickok45 . he 's just an all-around good guy . one of the best representatives out there for the pro-2a community .
 
 ### Neutral
-The statement is centered around the topic of gun ownership/banning, but there is no clear point of view.
+The statement is centered around the debate on gun control, but there is no clear opinion expressed.
 
 e.g. `` serve your fucking country , '' from someone who 's never served , and is actively trying to dismantle the tenants that made our country what it is . i wonder what the statistics are for veterans for and against gun control .
 
-### Anti Gun Polarized
-Explicitly oppose guns and support having, or support legal policies such as banning guns and confiscating personal guns, with a strong tone or biased statements.
+### Support Gun Control
+Explicitly opposes gun ownership or is in favor of legal policies such as banning guns and confiscating personal guns.
 
+#### Polarized
 e.g. we must ban this horrible weapon of war
 
-### Anti Gun non-Polarized
-Explicitly oppose guns and support having, or support legal policies such as banning guns and confiscating personal guns, but with a relatively calm tone that tends to express itself in ways such as stating facts and analyzing data.
-
+#### Non-Polarized
 e.g. so because guns are dangerous , we are going to tax the ability of people to practice with them . common sense gun control , right there .
 
-### Not Relevant
-Sentence statements don't have any obvious relationship to guns.
+### Irrelevant
+Don't have any obvious relationship to guns.
 
 e.g. women are funny , get over it nerd
 
 ### Not Sure
-The sentence statements are describing gun support for having/banning guns, but due to a lack of relevant context, or some other reason, we can sense the emotional inclination, but not the specific political attitude.
+The sentence statements are describing gun support for owning / banning guns, but due to a lack of relevant context, or some other reason, we can sense the emotional inclination, but not the specific opinion or polarized aspect.
 
 e.g. why were the authorities negotiating with terrorists ?
