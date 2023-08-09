@@ -1,7 +1,7 @@
 # Politosphere
 
 ## Polarized
-- antagonizing statements / hostility / billitling: "us vs them"
+- antagonizing statements / hostility / belittling: "us vs them"
 - radicalization
 - conflictive confrontation
 - closed to contradiction
