@@ -38,7 +38,7 @@
   - data-based
   - factual
   - sourced
-- Cautious / Careful presentation of assertions that are either:
+- Cautious / Careful or at least not over-confident presentation of assertions that are either:
   - coarse-grained
   - vague
   - emotional
