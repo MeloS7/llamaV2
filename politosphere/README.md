@@ -33,7 +33,7 @@
 - educational
 - humble
 - good faith
-- Confidence in assertions that are either:
+- Confidence in assertions that are only either:
   - precise
   - data-based
   - factual
