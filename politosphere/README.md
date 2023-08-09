@@ -56,10 +56,10 @@
 ### Opposition to Gun Control
 Explicitly in favor of individual gun ownership, or against gun bans and gun confiscation.
 
-#### Polarized
+#### Polarized
 e.g. i 'll just say fuck dianne feinstein . she is for full confiscation , and she is against universal healthcare . literally the worst .
 
-#### Non-polarized
+#### Non-polarized
 e.g. this is also why i love hickok45 . he 's just an all-around good guy . one of the best representatives out there for the pro-2a community .
 
 ### Neutral
@@ -70,10 +70,10 @@ e.g. `` serve your fucking country , '' from someone who 's never served , and i
 ### Support Gun Control
 Explicitly opposes gun ownership or is in favor of legal policies such as banning guns and confiscating personal guns.
 
-#### Polarized
+#### Polarized
 e.g. we must ban this horrible weapon of war
 
-#### Non-Polarized
+#### Non-polarized
 e.g. so because guns are dangerous , we are going to tax the ability of people to practice with them . common sense gun control , right there .
 
 ### Irrelevant
