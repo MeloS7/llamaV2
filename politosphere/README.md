@@ -1,12 +1,15 @@
 # Politosphere
+Maybe add: "highly polarized," "moderately polarized"?
 
 ## Polarized
-- antagonizing statements / hostility / belittling: "us vs them"
+- antagonizing statements / hostility / belittling / animosity: "us vs them"
+- inter-group antagonism
 - radicalization
 - conflictive confrontation
 - closed to contradiction
 - trolling
 - affective
+- ideological
 - bad faith
 - language used and argumentative mechanism:
   - argument from authority
@@ -19,6 +22,7 @@
   - patronizing /condescending language
   - dismissive language
   - taunt or snide remarks
+  - - stereoypes
 - Overconfidence in assertions that are either:
   - coarse-grained
   - vague
@@ -26,10 +30,12 @@
   - unsourced
 
 ## Non-polarized 
-- constructive conversation
+- constructive civic conversation
 - bring together to a common ground
-- peaceful dialogue 
+- peaceful dialogue
+- open-minded demeanour focused on learning and forming opinions
 - genuinely open to contradiction
+- open exchange of ideas
 - educational
 - humble
 - good faith
