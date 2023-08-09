@@ -11,7 +11,7 @@
 - language used and argumentative mechanism:
   - argument from authority
   - cognitive bias
-  - social bias
+  - social, economic or demographic bias
   - irony
   - sarcasm
   - hate speech, offensive, aggressive, abusive, toxic
