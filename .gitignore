@@ -1,3 +1,7 @@
 /sentiment_classification/mlruns
 /sentiment_classification/results
 /sentiment_classification/models
+
+/sentiment_classification/SFT-paral/mlruns
+/sentiment_classification/SFT-paral/results
+/sentiment_classification/SFT-paral/models
