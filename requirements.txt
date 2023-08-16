@@ -1,6 +1,7 @@
 trl
 peft
 scipy
+argparse
 BitsAndBytes
 accelerate
 xformers

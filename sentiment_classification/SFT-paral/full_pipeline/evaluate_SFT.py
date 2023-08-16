@@ -122,13 +122,13 @@ def main():
 
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--base_model_name", type=str, default="meta-llama/Llama-2-13b-hf")
-    parser.add_argument("--adapters_name", type=str, default="llama-2-13b-hf-SFT-100-1ep")
+    parser.add_argument("--adapters_name", type=str, default="Llama-2-13b-hf-steps")
     
     args = parser.parse_args()
 
     batch_size = args.batch_size
     base_model_name = args.base_model_name
-    adapters_name = "./models/" + args.adapters_name
+    adapters_name = "./models/meta-llama/" + args.adapters_name
 
     # Login to Hugging Face
     HUGGINGFACE_TOKEN = os.environ.get("HUGGINGFACE_TOKEN")
