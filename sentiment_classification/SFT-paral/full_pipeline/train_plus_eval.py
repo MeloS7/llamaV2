@@ -112,6 +112,11 @@ def main():
             num_train_epochs=epoch,
         )
 
+    ####
+    response_template = "[/INST]"
+    collator = DataCollatorForCompletionOnlyLM(response_template=response_template, tokenizer=tokenizer)
+    ####
+
     trainer = SFTTrainer(
         model=base_model,
         train_dataset=train_dataset,
@@ -120,6 +125,7 @@ def main():
         max_seq_length=max_seq_length,
         tokenizer=tokenizer,
         args=training_args,
+        data_collator=collator,
     )
 
     # Train the model
@@ -130,10 +136,10 @@ def main():
     print("=====================================")
 
     # Evaluate the model
-    print("Evaluating the finetuned model " + base_model_name + "...")
-    comp_res, invalid_label = evaluate_SFT(base_model, validataion_dataset, tokenizer, eval_batch_size)
-    print("Evaluation completed!")
-    print("=====================================")
+    # print("Evaluating the finetuned model " + base_model_name + "...")
+    # comp_res, invalid_label = evaluate_SFT(base_model, validataion_dataset, tokenizer, eval_batch_size)
+    # print("Evaluation completed!")
+    # print("=====================================")
 
     # Show the results
     showEvalResults(comp_res, invalid_label)

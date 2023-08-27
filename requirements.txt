@@ -1,6 +1,7 @@
 trl
 peft
 scipy
+wandb
 argparse
 BitsAndBytes
 accelerate

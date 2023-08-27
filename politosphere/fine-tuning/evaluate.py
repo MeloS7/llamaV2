@@ -9,8 +9,6 @@ from huggingface_hub import login
 from datasets import load_dataset
 from collections import Counter
 from torch.utils.data import Dataset, DataLoader
-from torch.nn.utils.rnn import pad_sequence
-
 
 class CustomDataset(Dataset):
     def __init__(self, dataset, tokenizer):
@@ -37,18 +35,21 @@ class CustomDataset(Dataset):
 def collate_fn(batch):
     input_ids = [item['input_ids'].tolist() for item in batch]
     attention_mask = [item['attention_mask'].tolist() for item in batch]
-    labels = [item['labels'] for item in batch]
+    labels = [item['labels'].tolist() for item in batch]
 
     # Left Padding
     max_length = max([len(item) for item in input_ids])
     input_ids = [[0]*(max_length - len(item)) + item for item in input_ids]
     attention_mask = [[0]*(max_length - len(item)) + item for item in attention_mask]
 
+    # Right Padding for labels
+    max_length_label = max([len(item) for item in labels])
+    labels = [item + [0]*(max_length_label - len(item)) for item in labels]
+
     # Convert lists to tensors
     input_ids = torch.tensor(input_ids)
     attention_mask = torch.tensor(attention_mask)
-    # Usually, labels are not padded
-    labels = pad_sequence(labels, batch_first=True, padding_value=-100)
+    labels = torch.tensor(labels)
 
     return {
         'input_ids': input_ids,
@@ -67,7 +68,7 @@ def evaluate_SFT(peft_model, dataset, tokenizer, batch_size=16):
     invalid_label = []
 
     for i, batch in enumerate(data_loader):
-        print("Batch {}/{}".format(i+1, len(data_loader)/batch_size))
+        print("Batch {}/{}".format(i+1, len(data_loader)))
         # Move batch to GPU
         input_ids = batch["input_ids"].to("cuda")
         attention_mask = batch["attention_mask"].to("cuda")
@@ -77,7 +78,7 @@ def evaluate_SFT(peft_model, dataset, tokenizer, batch_size=16):
         outputs = peft_model.generate(
             input_ids=input_ids,
             attention_mask=attention_mask,
-            max_new_tokens=80,
+            max_new_tokens=256,
             pad_token_id=tokenizer.eos_token_id
         )
 
@@ -87,23 +88,29 @@ def evaluate_SFT(peft_model, dataset, tokenizer, batch_size=16):
 
         # Evaluate the generated text
         for idx in range(len(outputs_text)):
-            print("Sample", idx)
-            print("Outputs:", outputs[idx])
-            print("Generated text:", outputs_text[idx])
             # Extract the last sentence
-            selected_sentiment = outputs_text[idx].split("Sentiment: ")[1].strip()
-            selected_sentiment = selected_sentiment.split(" ")[1].lower()
+            # print("Generated text of sample", idx, ":")
+            # print(outputs_text[idx])
+            selected_sentiment = outputs_text[idx].split("Sentiment Polarity: ")[1].strip()
+            selected_sentiment = selected_sentiment.split("[/INST] ")[1]
+            selected_sentiment = selected_sentiment.split(" ")[1].lower().strip()
             
-            if selected_sentiment not in ['positive', 'negative']:
+            # if selected_sentiment not in ['support gun polarized', 'support gun non-polarized', 'neutral', 'anti gun non-polarized', 'anti gun polarized', 'not sure', 'not relevant']:
+            #     invalid_label.append(selected_sentiment)
+            #     compared_result.append(0)
+            #     continue
+
+            if selected_sentiment not in ['pol', 'unpol', 'other']:
                 invalid_label.append(selected_sentiment)
                 compared_result.append(0)
                 continue
             
-            if selected_sentiment == label_decoded[idx]:
+            if selected_sentiment == label_decoded[idx].lower():
                 compared_result.append(1)
             else:
                 compared_result.append(0)
-        assert 1==2
+
+        # assert 1==2
         # if i >= 5:
         #     break
         # else:
@@ -118,24 +125,28 @@ def showEvalResults(compare_results, invalid_label):
     print("# of Invalid labels:", len(invalid_label), "out of", len(compare_results), "samples")
     print("Invalid labels:", counted_elements)
 
+
 def main():
     # Read arguments
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--base_model_name", type=str, default="meta-llama/Llama-2-13b-hf")
-    parser.add_argument("--adapters_name", type=str, default="llama-2-13b-hf-SFT-100-1ep")
+    parser.add_argument("--adapters_name", type=str, default="sa")
+    parser.add_argument("--dataset_name", type=str, default="OneFly7/llama2-politosphere-fine-tuning-pol-unpol-other")
     
     args = parser.parse_args()
 
     batch_size = args.batch_size
     base_model_name = args.base_model_name
-    adapters_name = "./models/" + args.adapters_name
+    adapters_name = "./models/meta-llama/" + args.adapters_name
+    dataset_name = args.dataset_name
 
-    # Login to Hugging Face
+    # # Login to Hugging Face
     # HUGGINGFACE_TOKEN = os.environ.get("HUGGINGFACE_TOKEN")
     # if not HUGGINGFACE_TOKEN:
     #     raise ValueError("Hugging Face token not provided!")
+    
     HUGGINGFACE_TOKEN = "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"
 
     login(token=HUGGINGFACE_TOKEN)
@@ -143,12 +154,10 @@ def main():
     print("=====================================")
 
     # Load the validation dataset
-    dataset_name = "OneFly7/llama2-sst2-fine-tuning-without-system-info"
-    validataion_dataset = load_dataset(dataset_name, split="validation")
-
-    ## Version 2-7b for finetuning
-    # base_model_name = "meta-llama/Llama-2-13b-hf"
-    # adapters_name = "./models/llama-2-13b-hf-SFT-5000-1ep"
+    validation_dataset = load_dataset(dataset_name, split="validation")
+    dataset_split = validation_dataset.train_test_split(test_size=0.2, shuffle=True, seed=42)
+    train_split = dataset_split["train"]
+    validation_split = dataset_split["test"]
 
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -180,33 +189,19 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(base_model_name, trust_remote_code=True)
     tokenizer.pad_token = tokenizer.eos_token
 
-    #### Simple test
-    # print("=====================================")
-    # prompt = "<s><INST> Sentence: I hate this movie. </INST> Sentiment:"
-    # input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
-    # attention_mask = tokenizer(prompt, return_tensors="pt").attention_mask.to("cuda")
-
-    # Generate for the entire batch
-    # outputs = peft_model.generate(
-    #     input_ids=input_ids,
-    #     attention_mask=attention_mask,
-    #     max_new_tokens=80,
-    #     pad_token_id=tokenizer.eos_token_id
-    # )
-    ####
-
-    # Decode the generated text and labels
-    outputs_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)
-    print(outputs_text)
-    assert 1==2
-
     # Evaluate the model
     print("Evaluating the model " + adapters_name + " ...")
-    comp_res, invalid_label = evaluate_SFT(peft_model, validataion_dataset, tokenizer, batch_size)
-    print("Evaluation completed!")
-
-    # Show the results
+    
+    # Evalutation on the training dataset
+    comp_res, invalid_label = evaluate_SFT(peft_model, train_split, tokenizer, batch_size)
+    print("Evaluation on the training dataset:")
     showEvalResults(comp_res, invalid_label)
+
+    comp_res, invalid_label = evaluate_SFT(peft_model, validation_split, tokenizer, batch_size)
+    print("Evaluation on the validation dataset:")
+    showEvalResults(comp_res, invalid_label)
+
+    print("\nEvaluation completed!")
 
 if __name__ == "__main__":
     main()
